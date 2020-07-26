@@ -8,6 +8,7 @@ import requests
 from bs4 import BeautifulSoup 
 import pandas as pd
 import pprint
+import subprocess
 from PyPDF2 import PdfFileReader, PdfFileMerger
 
 
@@ -52,7 +53,7 @@ def getdatafrommd5v2(md5):
 
 
 # %%
-def setpdfmetadata(file,title, author, publisher, series, year):
+def setpdfmetadataOLD(file,title, author, publisher, series, year):
     newfname='new_'+file
     file_in = open(file, 'rb')
     pdf_reader = PdfFileReader(file_in)
@@ -85,7 +86,11 @@ def setpdfmetadata(file,title, author, publisher, series, year):
 
 
 # %%
-
+#exiftool -Title="This is the Title" -Author="Happy Man" -Year="1999" -Publisher="me" -SeriesName="wow" a.djvu
+def setpdfmetadata(fname,title, author, publisher, series, year):
+    command = "exiftool -Title=\"{}\" -Author=\"{}\" -Year=\"{}\" -Publisher=\"{}\" -SeriesName=\"{}\" -overwrite_original \"{}\" ".format(title,author,year,publisher,series,fname)
+    print("doing: "+command)
+    subprocess.call(command, shell=True)
 
 
 # %%
@@ -99,13 +104,13 @@ def doIt(fname):
 
 
 # %%
-for file in os.listdir():
+for file in os.listdir('input'):
     if not file.endswith(".pdf"):
         continue
-    doIt(file)
+    doIt('input/'+file)
 
-# %% [markdown]
-# # WorkBench
+# # %% [markdown]
+# # # WorkBench
 
 # # %%
 # ans = getmd5sum('a.pdf')
@@ -146,7 +151,11 @@ for file in os.listdir():
 
 
 # # %%
-# doIt('b.pdf')
+# doIt("Emotional Design Why We Love (Or Hate) Everyday Things by Donald A. Norman (z-lib.org).pdf")
+
+
+# # %%
+# os.system("ls")
 
 
 # # %%
