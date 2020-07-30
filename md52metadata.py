@@ -87,10 +87,22 @@ def setpdfmetadataOLD(file,title, author, publisher, series, year):
 
 # %%
 #exiftool -Title="This is the Title" -Author="Happy Man" -Year="1999" -Publisher="me" -SeriesName="wow" a.djvu
-def setpdfmetadata(fname,title, author, publisher, series, year):
+def setmetadata(fname,title, author, publisher, series, year):
     command = "exiftool -Title=\"{}\" -Author=\"{}\" -Year=\"{}\" -Publisher=\"{}\" -SeriesName=\"{}\" -overwrite_original \"{}\" ".format(title,author,year,publisher,series,fname)
     print("doing: "+command)
     subprocess.call(command, shell=True)
+
+
+# %%
+def setCalibremetadata(fname,title, author, publisher, series, year):
+    command = f"ebook-meta {fname} -t \"{title}\" -a \"{author}\"  -p \"{publisher}\"  -d \"{year}\"  -s \"{series}\" "
+    print("doing: "+command)
+    subprocess.call(command, shell=True)
+
+
+# %%
+def setdjvumetadata(fname,title, author, publisher, series, year):
+    
 
 
 # %%
@@ -98,67 +110,67 @@ def doIt(fname):
     md5 = getmd5sum(fname)
     [title, author, publisher, series, year] = getdatafrommd5v2(md5)
     if(title != -1):
-        setpdfmetadata(fname,title, author, publisher, series, year)
+        setCalibremetadata(fname,title, author, publisher, series, year)
     else:
         print("nothing found for "+fname)
 
 
 # %%
 for file in os.listdir('input'):
-    if not file.endswith(".pdf"):
+    if not file.endswith(".djvu"):
         continue
     doIt('input/'+file)
 
-# # %% [markdown]
-# # # WorkBench
+# %% [markdown]
+# # WorkBench
 
-# # %%
-# ans = getmd5sum('a.pdf')
-# print(ans)
-
-
-# # %%
-# [title, author, publisher, series, year] = getdatafrommd5v2('bfd37427ea4784d215ddb4c4da49ca05')
+# %%
+ans = getmd5sum('a.pdf')
+print(ans)
 
 
-# # %%
-# table=test[0]
+# %%
+[title, author, publisher, series, year] = getdatafrommd5v2('bfd37427ea4784d215ddb4c4da49ca05')
 
 
-# # %%
-# ans = table.loc[table[1] == 'Title:',2]
+# %%
+table=test[0]
 
 
-# # %%
-# ans.to_string()
+# %%
+ans = table.loc[table[1] == 'Title:',2]
 
 
-# # %%
-# ans.tolist()[0]
+# %%
+ans.to_string()
 
 
-# # %%
-# title
+# %%
+ans.tolist()[0]
 
 
-# # %%
-# setpdfmetadata('a.pdf',title, author, publisher, series, year)
+# %%
+title
 
 
-# # %%
-
-# str(series)
-
-
-# # %%
-# doIt("Emotional Design Why We Love (Or Hate) Everyday Things by Donald A. Norman (z-lib.org).pdf")
+# %%
+setpdfmetadata('a.pdf',title, author, publisher, series, year)
 
 
-# # %%
-# os.system("ls")
+# %%
+
+setCalibremetadata('input/b.pdf',title, author, publisher, series, year)
 
 
-# # %%
+# %%
+doIt("Emotional Design Why We Love (Or Hate) Everyday Things by Donald A. Norman (z-lib.org).pdf")
+
+
+# %%
+os.system("ls")
+
+
+# %%
 
 
 
