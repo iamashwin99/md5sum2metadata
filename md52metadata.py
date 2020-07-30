@@ -124,53 +124,53 @@ for file in os.listdir('input'):
 # %% [markdown]
 # # WorkBench
 
-# %%
-ans = getmd5sum('a.pdf')
-print(ans)
+# # %%
+# ans = getmd5sum('a.pdf')
+# print(ans)
 
 
-# %%
-[title, author, publisher, series, year] = getdatafrommd5v2('bfd37427ea4784d215ddb4c4da49ca05')
+# # %%
+# [title, author, publisher, series, year] = getdatafrommd5v2('bfd37427ea4784d215ddb4c4da49ca05')
 
 
-# %%
-table=test[0]
+# # %%
+# table=test[0]
 
 
-# %%
-ans = table.loc[table[1] == 'Title:',2]
+# # %%
+# ans = table.loc[table[1] == 'Title:',2]
 
 
-# %%
-ans.to_string()
+# # %%
+# ans.to_string()
 
 
-# %%
-ans.tolist()[0]
+# # %%
+# ans.tolist()[0]
 
 
-# %%
-title
+# # %%
+# title
 
 
-# %%
-setpdfmetadata('a.pdf',title, author, publisher, series, year)
+# # %%
+# setpdfmetadata('a.pdf',title, author, publisher, series, year)
 
 
-# %%
+# # %%
 
-setCalibremetadata('input/b.pdf',title, author, publisher, series, year)
-
-
-# %%
-doIt("Emotional Design Why We Love (Or Hate) Everyday Things by Donald A. Norman (z-lib.org).pdf")
+# setCalibremetadata('input/b.pdf',title, author, publisher, series, year)
 
 
-# %%
-os.system("ls")
+# # %%
+# doIt("Emotional Design Why We Love (Or Hate) Everyday Things by Donald A. Norman (z-lib.org).pdf")
 
 
-# %%
+# # %%
+# os.system("ls")
+
+
+# # %%
 
 
 
