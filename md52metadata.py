@@ -25,7 +25,7 @@ def getmd5sum(filename):
 
 # %%
 def getdatafrommd5(md5):
-    url ='http://gen.lib.rus.ec/book/index.php?md5=' +md5
+    url ='https://www.libgen.is/book/index.php?md5=' +md5
     page = requests.get(url) 
     contents = page.content 
     soup = BeautifulSoup(contents, 'html.parser')
@@ -37,7 +37,7 @@ def getdatafrommd5(md5):
 
 # %%
 def getdatafrommd5v2(md5):
-    url ='http://gen.lib.rus.ec/book/index.php?md5=' +md5
+    url ='https://www.libgen.is/book/index.php?md5=' +md5
     print(url)
     r = requests.get(url)
     if(r.text == "No record with such MD5 hash has been found</body></html>"):
@@ -95,13 +95,13 @@ def setmetadata(fname,title, author, publisher, series, year):
 
 # %%
 def setCalibremetadata(fname,title, author, publisher, series, year):
-    command = f"ebook-meta {fname} -t \"{title}\" -a \"{author}\"  -p \"{publisher}\"  -d \"{year}\"  -s \"{series}\" "
+    command = f"ebook-meta \"{fname}\" -t \"{title}\" -a \"{author}\"  -p \"{publisher}\"  -d \"{year}\"  -s \"{series}\" "
     print("doing: "+command)
     subprocess.call(command, shell=True)
 
 
 # %%
-def setdjvumetadata(fname,title, author, publisher, series, year):
+#def setdjvumetadata(fname,title, author, publisher, series, year):
     
 
 
@@ -117,60 +117,7 @@ def doIt(fname):
 
 # %%
 for file in os.listdir('input'):
-    if not file.endswith(".djvu"):
+    if not file.endswith(".pdf"):
         continue
     doIt('input/'+file)
-
-# %% [markdown]
-# # WorkBench
-
-# # %%
-# ans = getmd5sum('a.pdf')
-# print(ans)
-
-
-# # %%
-# [title, author, publisher, series, year] = getdatafrommd5v2('bfd37427ea4784d215ddb4c4da49ca05')
-
-
-# # %%
-# table=test[0]
-
-
-# # %%
-# ans = table.loc[table[1] == 'Title:',2]
-
-
-# # %%
-# ans.to_string()
-
-
-# # %%
-# ans.tolist()[0]
-
-
-# # %%
-# title
-
-
-# # %%
-# setpdfmetadata('a.pdf',title, author, publisher, series, year)
-
-
-# # %%
-
-# setCalibremetadata('input/b.pdf',title, author, publisher, series, year)
-
-
-# # %%
-# doIt("Emotional Design Why We Love (Or Hate) Everyday Things by Donald A. Norman (z-lib.org).pdf")
-
-
-# # %%
-# os.system("ls")
-
-
-# # %%
-
-
 
