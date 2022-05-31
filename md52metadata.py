@@ -111,6 +111,9 @@ def doIt(fname):
     [title, author, publisher, series, year] = getdatafrommd5v2(md5)
     if(title != -1):
         setCalibremetadata(fname,title, author, publisher, series, year)
+        # move fname from input dir to output dir
+        os.rename(fname, fname.replace('input', 'output'))
+        
     else:
         print("nothing found for "+fname)
 
